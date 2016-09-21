@@ -1,10 +1,8 @@
 #!/bin/bash
 
-# build-centos-iso-cockpit - Unattended installation builder for Centos 7.2 with Cockpit, Docker and tools 
+# centos-build-iso - Unattended installation builder for Centos 7.2 with optionally Cockpit, Docker and selected tools 
 #
-# 20160920/PC/03
-
-set -x
+# 20160921/PC/03
 
 #-------------------------------------------------------------------------------	Parameters
 
@@ -320,7 +318,7 @@ function add_postinstall2kickstart {
 			fi
 		fi
 	done
-	EOF
+EOF
 }
 
 function add_settings2kickstart {
@@ -349,7 +347,7 @@ function add_settings2kickstart {
 
 	# reboot the machine after installation
 	reboot
-	EOF
+EOF
 }
 
 function create_iso {
@@ -403,6 +401,8 @@ case "$1" in
 			add_postinstall2kickstart 
 		# add default settings to kickstart
 		add_settings2kickstart
+		# create unattended install iso from workspace
+		create_iso
 		;;
 
 	docker)
@@ -426,6 +426,8 @@ case "$1" in
 			add_postinstall2kickstart 
 		# add default settings to kickstart
 		add_settings2kickstart
+		# create unattended install iso from workspace
+		create_iso		
 		;;
 
 	vanilla)
@@ -437,11 +439,13 @@ case "$1" in
 		add_kickstart_script 
 		# add post-install to kickstart
 		add_postinstall2kickstart 
+		# create unattended install iso from workspace
+		create_iso
 		;;
 
 	*)
 		# no parameter specified, show usage
-		echo $"Usage: $0 {cockpit|docker|vanilla}
+		echo "Usage: $0 {cockpit|docker|vanilla}"
 		exit 1;
 esac
 
