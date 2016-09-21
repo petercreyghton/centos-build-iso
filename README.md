@@ -5,29 +5,30 @@ Script to build unattended install ISO's for Centos 7, optionally with updates, 
 ## Features:
 
 Starring:
- - Latest Docker/Cockpit (with older Red Hat Docker version) (1.10.3 up)
+ - Latest Docker
+ - Cockpit with Red Hat Docker version (1.10.3 up)
  - devicemapper storage for Docker with Direct LVM thin pool 
  - VMware tools
 
 Network tools:
-	arp-scan
-	bind-utils
-	nmap
-	tcpdump
-	traceroute
-	telnet
-	whois
-	wget
+- arp-scan
+- bind-utils
+- nmap
+- tcpdump
+- traceroute
+- telnet
+- whois
+- wget
 
 System tools:
-	iftop
-	lsof
-	mkisofs
-	mlocate
-	ntp
-	nfs-utils
-	open-vm-tools
-	yum-utils
+- iftop
+- lsof
+- mkisofs
+- mlocate
+- ntp
+- nfs-utils
+- open-vm-tools
+- yum-utils
 
 ## Credentials
 

@@ -4,6 +4,8 @@
 #
 # 20160920/PC/03
 
+set -x
+
 #-------------------------------------------------------------------------------	Parameters
 
 # download mirror (1511 release = Centos 7.2)
@@ -159,8 +161,8 @@ function download_extras {
 
 	# pre-install other tools
 	yumpreload $PWD/iso/extras \
-		lsof \
 		iftop \
+		lsof \
 		mkisofs \
 		mlocate \
 		ntp \
