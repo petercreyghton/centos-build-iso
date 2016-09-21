@@ -438,7 +438,7 @@ case "$1" in
 		# add kickstart script to iso
 		add_kickstart_script 
 		# add post-install to kickstart
-		add_postinstall2kickstart 
+		add_settings2kickstart
 		# create unattended install iso from workspace
 		create_iso
 		;;
