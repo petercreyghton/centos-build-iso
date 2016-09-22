@@ -345,14 +345,16 @@ function add_settings2kickstart {
 	cat /etc/fstab |sed 's/defaults/defaults,noatime/g' >/tmp/fstab; mv -f /tmp/fstab /etc/fstab
 
 	# set local timeserver
-	# - first, remove old timeservers
-	cat /etc/ntp.conf |grep -v "^server " > /etc/.ntp.conf; mv -f /etc/.ntp.conf /etc/ntp.conf 
-	# - next, add custom NTP server (change if needed)
-	NTPSERVER=pool.ntp.org
-	echo "server $NTPSERVER" >> /etc/ntp.conf
-	# enable NTP timesync
-	systemctl enable ntpd
-	timedatectl set-ntp yes
+	if [ -f /etc/ntp.conf ]; then
+		# - first, remove old timeservers
+		cat /etc/ntp.conf |grep -v "^server " > /etc/.ntp.conf; mv -f /etc/.ntp.conf /etc/ntp.conf 
+		# - next, add custom NTP server (change if needed)
+		NTPSERVER=pool.ntp.org
+		echo "server $NTPSERVER" >> /etc/ntp.conf
+		# enable NTP timesync
+		systemctl enable ntpd
+		timedatectl set-ntp yes
+	fi
 
 
 	%end
