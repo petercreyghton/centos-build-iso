@@ -2,6 +2,7 @@
 
 Script to build unattended install ISO's for Centos 7, optionally with updates, extras and Cockpit or native Docker. Useful for deploying a CentOS 7 based host, optionally with Docker, Cockpit and a selection of tools from a single ISO on servers without internet access.
 
+
 ## Features:
 
 Starring:
@@ -30,10 +31,24 @@ System tools:
 - open-vm-tools
 - yum-utils
 
+
+## Prerequisites
+
+The script needs Enterprise Linux to run. To build a Centos ISO with COckpit, Docker and the tools a clean install is required (see known issues). 
+
+## Usage
+
+To build a Centos ISO, run the script and specify the ISO flavor you need (vanilla, docker or cockpit). 
+
+## Best practice
+
+Best practice is to build a plain vanilla ISO first, install it in a hypervisor and use the script again to build a Docker or Cockpit ISO. 
+
+Don't install any packages on the vanilla vm, as this may interfere with the building process. Git for example installs dependencies that are also required by arp-scan. The script won't download these dependencies for the ISO if Git already installed them. 
+
 ## Credentials
 
 Default username/password for all images is root/password
-
 
 ## Notes
 
