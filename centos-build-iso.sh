@@ -160,6 +160,7 @@ function download_extras {
 	yumpreload $PWD/iso/extras \
 		arp-scan \
 		bind-utils \
+		iftop \
 		nmap \
 		tcpdump \
 		traceroute \
@@ -169,7 +170,7 @@ function download_extras {
 
 	# pre-install other tools
 	yumpreload $PWD/iso/extras \
-		iftop \
+		git \
 		lsof \
 		mkisofs \
 		mlocate \
