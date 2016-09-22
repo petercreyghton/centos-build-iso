@@ -113,7 +113,7 @@ function download_docker {
 	# download latest Docker release from Docker repo
 
 	# pre-install Docker: first add Docker repo
-	mkdir $PWD/iso/extras/docker-engine
+	mkdir -p $PWD/iso/extras/docker-engine
 	cat > $PWD/iso/extras/docker-engine/pre-install.sh <<-'EOF'
 	#!/bin/bash
 	cat > /etc/yum.repos.d/docker.repo <<-'EOF2'
