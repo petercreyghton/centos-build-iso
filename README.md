@@ -1,4 +1,4 @@
-# centos-build
+# centos-build-iso
 
 Script to build unattended install ISO's for Centos 7, optionally with updates, extras and Cockpit or native Docker. Useful for deploying a CentOS 7 based host, optionally with Docker, Cockpit and a selection of tools from a single ISO on servers without internet access.
 
