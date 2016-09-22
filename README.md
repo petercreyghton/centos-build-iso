@@ -52,7 +52,7 @@ Default username/password for all images is root/password
 
 ## Configuration
 
-You should at least change the default password 'password' by replacing the current salt and hash in the kickstart part of the script. In some cases a custom NTP configuration is necessary, e.g. enterprise environments
+You should at least change the default password 'password' by replacing the current salt and hash in the kickstart part of the script. In some cases a custom NTP configuration is necessary, e.g. enterprise environments. Change NTPSERVER as needed.
 
 ## Notes
 
