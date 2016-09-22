@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# centos-build-iso - Unattended installation builder for Centos 7.2 with optionally Cockpit, Docker and selected tools 
+# centos-build-iso -	Unattended installation ISO builder for Centos 7.2 
+#						with optionally updates, tools, Docker and Cockpit
 #
 # 20160922/PC/01
 
