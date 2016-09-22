@@ -21,6 +21,7 @@ ISO_TITLE=centos72-cockpit
 
 function yumpreload {
 	# pre-download a package for unattended installation from iso
+
 	TARGETDIR=$1
 	shift
 	# pre-download specified package
@@ -32,7 +33,8 @@ function yumpreload {
 
 #-------------------------------------------------------------------------------	Functions
 
-function prepare_iso {	## load base image and modify boot menu
+function prepare_iso {	
+	# load base image and modify boot menu
 
 	# download baseimage if not present
 	if [ ! -e $PWD/../$ISO_NAME ]
@@ -68,7 +70,7 @@ function prepare_iso {	## load base image and modify boot menu
 }
 
 function download_updates {
-	## download updates and extra packages
+	# download updates and extra packages
 
 	# pre-install and install latest updates 
 	yum clean all
@@ -91,6 +93,7 @@ function download_dependencies {
 
 function download_cockpit {
 	# pre-download Cockpit with related Docker engine
+
 	yumpreload $PWD/iso/extras \
 		cockpit
 
@@ -104,7 +107,6 @@ function download_cockpit {
 }
 
 function download_docker {
-
 	# download latest Docker release from Docker repo
 
 	# pre-install Docker: first add Docker repo
@@ -149,7 +151,9 @@ function download_docker {
 }
 
 function download_extras {
-	# pre-download network tools
+	# download selected tools
+
+	# pre-download network tools	
 	yumpreload $PWD/iso/extras \
 		arp-scan \
 		bind-utils \
@@ -191,8 +195,8 @@ function download_extras {
 	chmod +x $PWD/iso/extras/firewalld/post-install.sh
 }
 
-function add_kickstart_script {
 
+function add_kickstart_script {
 	## add kickstart script
 
 	cat > $PWD/iso/isolinux/ui/ks.cfg <<-'EOF'
@@ -269,7 +273,6 @@ function add_kickstart_script {
 }
 
 function add_thin_pools2kickstart {
-
 	# add thin pools for native Docker installation
 
 	cat >> $PWD/iso/isolinux/ui/ks.cfg <<-'EOF'
@@ -280,6 +283,8 @@ function add_thin_pools2kickstart {
 }
 
 function add_postinstall2kickstart {
+	# add script to install extras during postinstall
+
 	cat >> $PWD/iso/isolinux/ui/ks.cfg <<-'EOF'
 
 	# mount iso 
@@ -325,6 +330,7 @@ EOF
 }
 
 function add_settings2kickstart {
+	# add script to configure default settings during postinstall 
 	cat >> $PWD/iso/isolinux/ui/ks.cfg <<-'EOF'
 
 	## configure settings
@@ -354,9 +360,7 @@ EOF
 }
 
 function create_iso {
-
 	## create ISO file
-	echo -create iso file
 
 	yum install -y mkisofs
 	mkisofs -r -T -J \
@@ -369,15 +373,11 @@ function create_iso {
 		-o ~/$ISO_TITLE.iso \
 		$PWD/iso/
 
-	## cleanup
-	echo -cleanup iso
-
 	# delete iso. Disable this line to save time during development
 	rm -rf $PWD/iso
 
 	# show result
 	echo $ISO_TITLE.iso is ready in your homedir
-
 }
 
 
