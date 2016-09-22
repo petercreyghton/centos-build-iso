@@ -338,11 +338,30 @@ function add_settings2kickstart {
 
 	## configure settings
 
+
 	# send a null packet to the server every minute to keep the ssh connection alive
 	echo "ServerAliveInterval 60" >> /etc/ssh/ssh_config
 
+
 	# mount with noatime to prevent excessive SSD wear
 	cat /etc/fstab |sed 's/defaults/defaults,noatime/g' >/tmp/fstab; mv -f /tmp/fstab /etc/fstab
+
+
+	# disable IPv6
+	cat >> /etc/sysctl.conf <<-"EOF2"
+	net.ipv6.conf.all.disable_ipv6 = 1
+	net.ipv6.conf.default.disable_ipv6 = 1
+	EOF2
+	# change setting here as well
+	cat >> /etc/sysconfig/network <<-"EOF2"
+	NETWORKING_IPV6=no
+	EOF2
+	# prevent breaking x-forwarding with ssh
+	cat /etc/ssh/sshd_config | \
+		sed 's/AddressFamily any/AddressFamily inet/g' | \
+		sed 's/#ListenAddress/ListenAddress/g' \
+		> /etc/ssh/.sshd_config; mv -f ./etc/ssh/sshd_config /etc/ssh/sshd_config
+
 
 	# set local timeserver
 	if [ -f /etc/ntp.conf ]; then
