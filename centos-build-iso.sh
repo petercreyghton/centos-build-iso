@@ -382,6 +382,36 @@ function create_iso {
 
 	
 case "$1" in 
+	vanilla)
+		# create vanilla CentOS 7.2 image for unattended installation
+
+		# download and unpack base image
+		prepare_iso
+		# add kickstart script to iso
+		add_kickstart_script 
+		# add default settings to kickstart
+		add_settings2kickstart
+		# create unattended install iso from workspace
+		create_iso
+		;;
+
+	update)
+		# create vanilla CentOS 7.2 image with updates for unattended installation
+
+		# download and unpack base image
+		prepare_iso
+		# download updates
+			download_updates
+		# add kickstart script to iso
+		add_kickstart_script 
+		# add post-install to kickstart
+			add_postinstall2kickstart 		
+		# add default settings to kickstart
+		add_settings2kickstart
+		# create unattended install iso from workspace
+		create_iso
+		;;
+
 	cockpit)
 		# create CentOS 7.2 image with Cockpit and Docker from Red Hat
 
@@ -428,34 +458,6 @@ case "$1" in
 		add_settings2kickstart
 		# create unattended install iso from workspace
 		create_iso		
-		;;
-
-	update)
-		# create vanilla CentOS 7.2 image with updates for unattended installation
-
-		# download and unpack base image
-		prepare_iso
-		# download updates
-			download_updates
-		# add kickstart script to iso
-		add_kickstart_script 
-		# add post-install to kickstart
-		add_settings2kickstart
-		# create unattended install iso from workspace
-		create_iso
-		;;
-
-	vanilla)
-		# create vanilla CentOS 7.2 image for unattended installation
-
-		# download and unpack base image
-		prepare_iso
-		# add kickstart script to iso
-		add_kickstart_script 
-		# add post-install to kickstart
-		add_settings2kickstart
-		# create unattended install iso from workspace
-		create_iso
 		;;
 
 	*)
