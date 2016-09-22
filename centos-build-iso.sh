@@ -113,8 +113,8 @@ function download_docker {
 	# download latest Docker release from Docker repo
 
 	# pre-install Docker: first add Docker repo
-	mkdir $WORKDIR/workspace/extras/docker-engine
-	cat > $WORKDIR/workspace/extras/docker-engine/pre-install.sh <<-'EOF'
+	mkdir $WORKDIR/iso/extras/docker-engine
+	cat > $WORKDIR/iso/extras/docker-engine/pre-install.sh <<-'EOF'
 	#!/bin/bash
 	cat > /etc/yum.repos.d/docker.repo <<-'EOF2'
 	[dockerrepo]
@@ -137,19 +137,19 @@ function download_docker {
 	}
 	EOF2
 	EOF
-	chmod +x $WORKDIR/workspace/extras/docker-engine/pre-install.sh
+	chmod +x $WORKDIR/iso/extras/docker-engine/pre-install.sh
 	# add the repo in order to pre-download Docker
-	source $WORKDIR/workspace/extras/docker-engine/pre-install.sh
+	source $WORKDIR/iso/extras/docker-engine/pre-install.sh
 
 	# postinstall: enable docker in systemd
-	cat > $WORKDIR/workspace/extras/docker-engine/post-install.sh <<-'EOF'
+	cat > $WORKDIR/iso/extras/docker-engine/post-install.sh <<-'EOF'
 	#!/bin/bash	
 	systemctl enable docker
 	EOF
-	chmod +x $WORKDIR/workspace/extras/docker-engine/post-install.sh
+	chmod +x $WORKDIR/iso/extras/docker-engine/post-install.sh
 
 	# pre-install latest Docker engine
-	yumpreload $WORKDIR/workspace/extras \
+	yumpreload $WORKDIR/iso/extras \
 		docker-engine
 }
 
