@@ -414,6 +414,28 @@ case "$1" in
 		create_iso
 		;;
 
+	tools)
+		# CentOS 7.2 image with latest updates and tools
+
+		# download and unpack base image
+		prepare_iso
+		# download updates
+			download_updates
+		# download dependencies like repositories etc
+			download_dependencies
+		# download extra tools
+			download_extras
+		# add kickstart script to iso
+		add_kickstart_script
+		# add post-install to kickstart
+			add_postinstall2kickstart 
+		# add default settings to kickstart
+		add_settings2kickstart
+		# create unattended install iso from workspace
+		create_iso		
+		;;
+
+
 	docker)
 		# create CentOS 7.2 image with latest updates, latest Docker package and tools
 
@@ -423,7 +445,7 @@ case "$1" in
 			download_updates
 		# download dependencies like repositories etc
 			download_dependencies
-		# install Cockpit with latest Docker release
+		# install latest Docker release
 			download_docker
 		# download extra tools
 			download_extras
@@ -448,7 +470,7 @@ case "$1" in
 			download_updates
 		# download dependencies like repositories etc
 			download_dependencies
-		# install Cockpit with Docker Red Hat release
+		# install Cockpit with Red Hat's Docker package
 			download_cockpit
 		# download extra tools
 			download_extras
@@ -464,7 +486,7 @@ case "$1" in
 
 	*)
 		# no parameter specified, show usage
-		echo "Usage: $0 {cockpit|docker|vanilla}"
+		echo "Usage: $0 {vanilla|update|tools|docker|cockpit}"
 		exit 1;
 esac
 
