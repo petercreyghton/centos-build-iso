@@ -381,6 +381,8 @@ function create_iso {
 #---------------------------------------------------------------------------------  Main script
 
 	
+# build the selected iso flavor. Note that the indented statements are what separates the flavors from Vanilla.
+
 case "$1" in 
 	vanilla)
 		# create vanilla CentOS 7.2 image (only add kickstart for unattended install)
