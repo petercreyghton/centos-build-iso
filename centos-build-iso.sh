@@ -410,7 +410,7 @@ case "$1" in
 
 		# download and unpack base image
 		prepare_iso
-		# create CentOS 7.2 image with Cockpit and Docker (latest Red Hat Docker release)
+		# download updates
 			download_updates
 		# download dependencies like repositories etc
 			download_dependencies
@@ -428,6 +428,21 @@ case "$1" in
 		add_settings2kickstart
 		# create unattended install iso from workspace
 		create_iso		
+		;;
+
+	update)
+		# create vanilla CentOS 7.2 image with updates for unattended installation
+
+		# download and unpack base image
+		prepare_iso
+		# download updates
+			download_updates
+		# add kickstart script to iso
+		add_kickstart_script 
+		# add post-install to kickstart
+		add_settings2kickstart
+		# create unattended install iso from workspace
+		create_iso
 		;;
 
 	vanilla)
