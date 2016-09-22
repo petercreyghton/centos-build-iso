@@ -9,12 +9,15 @@
 
 #-------------------------------------------------------------------------------	Parameters
 
+# selected flavor
+ISO_FLAVOR=$1
+
 # download mirror (1511 release = Centos 7.2)
 ISO_URL=http://buildlogs.centos.org/rolling/7/isos/x86_64/CentOS-7-x86_64-Minimal-1511.iso
 ISO_NAME=$(echo $ISO_URL|rev|cut -d/ -f1|rev)
 
 # name of the target ISO file
-ISO_TITLE=centos72-cockpit
+ISO_TITLE=centos72-$ISO_FLAVOR
 
 
 #-------------------------------------------------------------------------------	Helper functions
@@ -364,7 +367,7 @@ function create_iso {
 
 	yum install -y mkisofs
 	mkisofs -r -T -J \
-		-V “CentOS-v7.2-ai” \
+		-V “CentOS-v7.2-$ISO_FLAVOR” \
 		-b isolinux/isolinux.bin \
 		-c isolinux/boot.cat \
 		-no-emul-boot \
@@ -386,7 +389,7 @@ function create_iso {
 	
 # build the selected iso flavor. Note that the indented statements are what separates the flavors from Vanilla.
 
-case "$1" in 
+case "$ISO_FLAVOR" in 
 	vanilla)
 		# create vanilla CentOS 7.2 image (only add kickstart for unattended install)
 
