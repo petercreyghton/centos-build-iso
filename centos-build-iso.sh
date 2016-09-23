@@ -357,7 +357,7 @@ function add_settings2kickstart {
 	cat >> /etc/sysconfig/network <<-"EOF2"
 	NETWORKING_IPV6=no
 	EOF2
-	# prevent breaking x-forwarding with ssh
+	# prevent breaking ssh x-forwarding with ipv6
 	cat /etc/ssh/sshd_config | \
 		sed 's/#AddressFamily/AddressFamily/g' | \
 		sed 's/AddressFamily any/AddressFamily inet/g' | \
