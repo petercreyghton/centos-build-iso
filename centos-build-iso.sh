@@ -359,9 +359,11 @@ function add_settings2kickstart {
 	EOF2
 	# prevent breaking x-forwarding with ssh
 	cat /etc/ssh/sshd_config | \
+		sed 's/#AddressFamily/AddressFamily/g' | \
 		sed 's/AddressFamily any/AddressFamily inet/g' | \
-		sed 's/#ListenAddress/ListenAddress/g' \
-		> /etc/ssh/.sshd_config; mv -f ./etc/ssh/sshd_config /etc/ssh/sshd_config
+		sed 's/#ListenAddress/ListenAddress/g' |\
+		grep -v "ListenAddress ::" \
+		> /etc/ssh/.sshd_config; mv -f /etc/ssh/.sshd_config /etc/ssh/sshd_config
 
 
 	# set local timeserver
