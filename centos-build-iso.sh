@@ -187,8 +187,12 @@ function download_extras {
 	systemctl enable vmtoolsd
 	EOF
 	chmod +x $PWD/iso/extras/open-vm-tools/post-install.sh
+}
 
+
+function download_firewalld {
 	# pre-download FirewallD
+
 	yumpreload $PWD/iso/extras \
 		firewalld
 	# postinstall: enable FirewallD 
@@ -455,6 +459,8 @@ case "$ISO_FLAVOR" in
 			download_dependencies
 		# download extra tools
 			download_extras
+		# download firewalld
+			download_firewalld
 		# add kickstart script to iso
 		add_kickstart_script
 		# add post-install to kickstart
