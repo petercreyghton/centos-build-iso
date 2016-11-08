@@ -351,6 +351,8 @@ function add_settings2kickstart {
 	# mount with noatime to prevent excessive SSD wear
 	cat /etc/fstab |sed 's/defaults/defaults,noatime/g' >/tmp/fstab; mv -f /tmp/fstab /etc/fstab
 
+	# disable NetworkManager by default
+	systemctl disable NetworkManager
 
 	# disable IPv6
 	cat >> /etc/sysctl.conf <<-"EOF2"
