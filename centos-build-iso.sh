@@ -195,10 +195,10 @@ function download_firewalld {
 
 	yumpreload $PWD/iso/extras \
 		firewalld
-	# postinstall: enable FirewallD 
+	# postinstall: disable FirewallD by default
 	cat > $PWD/iso/extras/firewalld/post-install.sh <<-'EOF'
 	#!/bin/bash	
-	systemctl enable firewalld
+	systemctl disable firewalld
 	EOF
 	chmod +x $PWD/iso/extras/firewalld/post-install.sh
 }
