@@ -4,8 +4,6 @@
 #
 #	Unattended installation ISO builder for Centos 7.2 
 #	with optionally updates, tools, Docker and Cockpit
-#
-# 20160922/PC/01
 
 #-------------------------------------------------------------------------------	Parameters
 
@@ -155,8 +153,17 @@ function download_docker {
 
 
 function download_dockercompose {
-	curl -L https://github.com/docker/compose/releases/download/1.9.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-	chmod +x /usr/local/bin/docker-compose
+	# download docker-compose v1.9.0
+	mkdir -p $PWD/iso/extras/docker-compose
+	curl -L https://github.com/docker/compose/releases/download/1.9.0/docker-compose-`uname -s`-`uname -m` > $PWD/iso/extras/docker-compose/docker-compose
+	chmod +x $PWD/iso/extras/docker-compose/docker-compose
+
+	# post-installation: copy docker-compose to local OS
+	cat > $PWD/iso/extras/docker-compose/post-install.sh <<-'EOF'
+	#!/bin/bash	
+	cp -f /media/extras/docker-compose/docker-compose /usr/local/bin
+	EOF
+	chmod +x $PWD/iso/extras/docker-compose/post-install.sh
 }
 
 
@@ -336,7 +343,7 @@ function add_postinstall2kickstart {
 			# run pre-install script
 			if [ -f $i/pre-install.sh ]; then
 				source $i/pre-install.sh
-			fi
+			fiq
 
 			# main package
 			package=$(echo $i|cut -d"/" -f4)
