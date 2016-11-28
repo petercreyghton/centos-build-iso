@@ -206,15 +206,8 @@ function download_extras {
 
 function download_firewalld {
 	# pre-download FirewallD
-
 	yumpreload $PWD/iso/extras \
 		firewalld
-	# postinstall: disable FirewallD by default
-	cat > $PWD/iso/extras/firewalld/post-install.sh <<-'EOF'
-	#!/bin/bash	
-	systemctl disable firewalld
-	EOF
-	chmod +x $PWD/iso/extras/firewalld/post-install.sh
 }
 
 
@@ -378,6 +371,9 @@ function add_settings2kickstart {
 	# disable NetworkManager by default
 	systemctl disable NetworkManager
 
+	# disable FirewallD by default
+	systemctl disable firewalld
+
 	# disable IPv6
 	cat >> /etc/sysctl.conf <<-"EOF2"
 	net.ipv6.conf.all.disable_ipv6 = 1
@@ -451,8 +447,6 @@ case "$ISO_FLAVOR" in
 		prepare_iso
 		# download and DISABLE firewalld
 			download_firewalld
-		# disable networkmanager
-			disable_networkmanager
 		# add kickstart script to iso
 		add_kickstart_script 
 		# add default settings to kickstart
@@ -470,8 +464,6 @@ case "$ISO_FLAVOR" in
 			download_updates
 		# download and DISABLE firewalld
 			download_firewalld
-		# disable networkmanager
-			disable_networkmanager
 		# add kickstart script to iso
 		add_kickstart_script 
 		# add post-install to kickstart
@@ -495,8 +487,6 @@ case "$ISO_FLAVOR" in
 			download_extras
 		# download firewalld
 			download_firewalld
-		# disable networkmanager
-			disable_networkmanager
 		# add kickstart script to iso
 		add_kickstart_script
 		# add post-install to kickstart
@@ -523,8 +513,6 @@ case "$ISO_FLAVOR" in
 			download_extras
 		# download firewalld
 			download_firewalld
-		# disable networkmanager
-			disable_networkmanager
 		# add kickstart script to iso
 		add_kickstart_script
 		# add thin pools to kickstart
@@ -552,8 +540,6 @@ case "$ISO_FLAVOR" in
 			download_extras
 		# download firewalld
 			download_firewalld
-		# disable networkmanager
-			disable_networkmanager
 		# add kickstart script to iso
 		add_kickstart_script 
 		# add post-install to kickstart
