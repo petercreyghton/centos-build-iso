@@ -211,16 +211,6 @@ function download_firewalld {
 }
 
 
-function disable_networkmanager {
-	# disable the service by default
-	mkdir -p $PWD/iso/extras/networkmanager
-	cat > $PWD/iso/extras/networkmanager/post-install.sh <<-'EOF'
-	#!/bin/bash	
-	systemctl disable NetworkManager
-	EOF
-	chmod +x $PWD/iso/extras/firewalld/post-install.sh
-}
-
 function add_kickstart_script {
 	## add kickstart script
 
@@ -509,6 +499,8 @@ case "$ISO_FLAVOR" in
 			download_dependencies
 		# install latest Docker release
 			download_docker
+		# install docker-compose
+			download_dockercompose
 		# download extra tools
 			download_extras
 		# download firewalld
@@ -536,6 +528,8 @@ case "$ISO_FLAVOR" in
 			download_dependencies
 		# install Cockpit with Red Hat's Docker package
 			download_cockpit
+		# install docker-compose
+			download_dockercompose
 		# download extra tools
 			download_extras
 		# download firewalld
