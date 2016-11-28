@@ -326,7 +326,7 @@ function add_postinstall2kickstart {
 			# run pre-install script
 			if [ -f $i/pre-install.sh ]; then
 				source $i/pre-install.sh
-			fiq
+			fi
 
 			# main package
 			package=$(echo $i|cut -d"/" -f4)
