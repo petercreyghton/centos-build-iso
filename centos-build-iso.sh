@@ -153,6 +153,13 @@ function download_docker {
 		docker-engine
 }
 
+
+function download_dockercompose {
+	curl -L https://github.com/docker/compose/releases/download/1.9.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+	chmod +x /usr/local/bin/docker-compose
+}
+
+
 function download_extras {
 	# download selected tools
 
@@ -203,6 +210,16 @@ function download_firewalld {
 	chmod +x $PWD/iso/extras/firewalld/post-install.sh
 }
 
+
+function disable_networkmanager {
+	# disable the service by default
+	mkdir -p $PWD/iso/extras/networkmanager
+	cat > $PWD/iso/extras/networkmanager/post-install.sh <<-'EOF'
+	#!/bin/bash	
+	systemctl disable NetworkManager
+	EOF
+	chmod +x $PWD/iso/extras/firewalld/post-install.sh
+}
 
 function add_kickstart_script {
 	## add kickstart script
@@ -425,6 +442,10 @@ case "$ISO_FLAVOR" in
 
 		# download and unpack base image
 		prepare_iso
+		# download and DISABLE firewalld
+			download_firewalld
+		# disable networkmanager
+			disable_networkmanager
 		# add kickstart script to iso
 		add_kickstart_script 
 		# add default settings to kickstart
@@ -440,6 +461,10 @@ case "$ISO_FLAVOR" in
 		prepare_iso
 		# download updates
 			download_updates
+		# download and DISABLE firewalld
+			download_firewalld
+		# disable networkmanager
+			disable_networkmanager
 		# add kickstart script to iso
 		add_kickstart_script 
 		# add post-install to kickstart
@@ -463,6 +488,8 @@ case "$ISO_FLAVOR" in
 			download_extras
 		# download firewalld
 			download_firewalld
+		# disable networkmanager
+			disable_networkmanager
 		# add kickstart script to iso
 		add_kickstart_script
 		# add post-install to kickstart
@@ -487,6 +514,10 @@ case "$ISO_FLAVOR" in
 			download_docker
 		# download extra tools
 			download_extras
+		# download firewalld
+			download_firewalld
+		# disable networkmanager
+			disable_networkmanager
 		# add kickstart script to iso
 		add_kickstart_script
 		# add thin pools to kickstart
@@ -512,6 +543,10 @@ case "$ISO_FLAVOR" in
 			download_cockpit
 		# download extra tools
 			download_extras
+		# download firewalld
+			download_firewalld
+		# disable networkmanager
+			disable_networkmanager
 		# add kickstart script to iso
 		add_kickstart_script 
 		# add post-install to kickstart
