@@ -38,7 +38,9 @@ The script needs Enterprise Linux to run. To build a Centos ISO with COckpit, Do
 
 ## Usage
 
-To build a Centos ISO, run the script and specify the ISO flavor you need (vanilla, docker or cockpit). 
+To build a Centos ISO, run the script and specify the ISO flavor you need:
+
+ Usage: centos-build-iso.sh {vanilla|update|tools|docker|cockpit}
 
 ## Best practice
 
