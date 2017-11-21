@@ -235,7 +235,7 @@ function add_kickstart_script {
 	lang en_US.UTF-8
 
 	# Network information
-	network  --bootproto=dhcp --device=ens32 --ipv6=auto --activate
+	network  --bootproto=dhcp --device=link --ipv6=auto --activate
 	network  --hostname=centos72.local
 
 	# default credentials: root/password
