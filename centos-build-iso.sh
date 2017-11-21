@@ -11,7 +11,7 @@
 ISO_FLAVOR=$1
 
 # download mirror (1511 release = Centos 7.2)
-ISO_URL=http://buildlogs.centos.org/rolling/7/isos/x86_64/CentOS-7-x86_64-Minimal-1511.iso
+ISO_URL=http://buildlogs.centos.org/rolling/7/isos/x86_64/CentOS-7-x86_64-Minimal.iso
 ISO_NAME=$(echo $ISO_URL|rev|cut -d/ -f1|rev)
 
 # name of the target ISO file
