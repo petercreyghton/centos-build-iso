@@ -184,6 +184,7 @@ function download_extras {
 
 	# pre-install other tools
 	yumpreload $PWD/iso/extras \
+		bash-completion-extras \
 		git \
 		lsof \
 		mkisofs \
