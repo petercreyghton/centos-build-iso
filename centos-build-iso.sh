@@ -2,7 +2,7 @@
 
 # centos-build-iso
 #
-#	Unattended installation ISO builder for Centos 7.2 
+#	Unattended installation ISO builder for Centos 7.x 
 #	with optionally updates, tools, Docker and Cockpit
 
 #-------------------------------------------------------------------------------	Parameters
@@ -10,12 +10,12 @@
 # selected flavor
 ISO_FLAVOR=$1
 
-# download mirror (1511 release = Centos 7.2)
+# download mirror (link to latest minimal install)
 ISO_URL=https://buildlogs.centos.org/rolling/7/isos/x86_64/CentOS-7-x86_64-Minimal.iso
 ISO_NAME=$(echo $ISO_URL|rev|cut -d/ -f1|rev)
 
 # name of the target ISO file
-ISO_TITLE=centos72-$ISO_FLAVOR
+ISO_TITLE=centos7-$(date +%F)-$ISO_FLAVOR
 
 
 #-------------------------------------------------------------------------------	Helper functions
