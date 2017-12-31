@@ -237,7 +237,7 @@ function add_kickstart_script {
 
 	# Network information
 	network  --bootproto=dhcp --device=link --ipv6=auto --activate
-	network  --hostname=centos72.local
+	network  --hostname=centos7.local
 
 	# default credentials: root/password
 	rootpw --iscrypted \$6\$m8EiTs1A\$1k.2BJUslIR6oXoyckalPu6KBfi608WPFHWMnNqaoQ71XBNSn85cpQvYPe.ITMxZRsNYhZqtppPUxfkuOwkiF1
